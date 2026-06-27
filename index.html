@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ArenoX Tournament | تسجيل النتائج</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.min.js"></script>
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header__inner">
+            <div class="header__logo">
+                <i class="fas fa-gamepad header__logo-icon"></i>
+                <span class="header__logo-text">ArenoX</span>
+                <span class="header__logo-badge">Tournament</span>
+       
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <div class="card card--glow">
+                <div class="card__header">
+                    <h2 class="card__title">
+                        <i class="fas fa-trophy"></i> تسجيل نتيجة مباراة
+                    </h2>
+                    <p class="card__subtitle">قم بتعبئة النموذج لتسجيل نتيجة مباراتك في بطولة ArenoX</p>
+                </div>
+
+                <form id="result-form" class="form" enctype="multipart/form-data">
+                    <div class="form__row">
+                        <div class="form__group">
+                            <label class="form__label" for="player-name">
+                                <i class="fas fa-user"></i> اسم اللاعب <span class="form__required">*</span>
+                            </label>
+                            <input type="text" id="player-name" class="form__input" placeholder="أدخل اسمك" required />
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label" for="opponent-name">
+                                <i class="fas fa-user-friends"></i> اسم الخصم <span class="form__required">*</span>
+                            </label>
+                            <input type="text" id="opponent-name" class="form__input" placeholder="أدخل اسم الخصم" required />
+                        </div>
+                    </div>
+
+                    <div class="form__row">
+                        <div class="form__group">
+                            <label class="form__label" for="match-id">
+                                <i class="fas fa-hashtag"></i> رقم المباراة <span class="form__required">*</span>
+                            </label>
+                            <input type="text" id="match-id" class="form__input" placeholder="مثال: OFFICIAL-5" required />
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label" for="stage">
+                                <i class="fas fa-layer-group"></i> المرحلة <span class="form__required">*</span>
+                            </label>
+                            <select id="stage" class="form__input" required>
+                                <option value="">اختر المرحلة</option>
+                                <option value="دور الـ 64">دور الـ 64</option>
+                                <option value="دور الـ 32">دور الـ 32</option>
+                                <option value="دور الـ 16">دور الـ 16</option>
+                                <option value="ربع النهائي">ربع النهائي</option>
+                                <option value="نصف النهائي "> نصف النهائي</option>
+                                 <option value="النهائي"> النهائي</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form__row">
+                        <div class="form__group">
+                            <label class="form__label" for="result">
+                                <i class="fas fa-flag-checkered"></i> نتيجة المباراة <span class="form__required">*</span>
+                            </label>
+                            <input type="text" id="result" class="form__input" placeholder="مثال: 2-1 أو فوز" required />
+                        </div>
+                        <div class="form__group">
+                            <label class="form__label" for="screenshot">
+                                <i class="fas fa-image"></i> لقطة شاشة <span class="form__required">*</span>
+                            </label>
+                            <div class="file-upload">
+                                <input type="file" id="screenshot" class="file-upload__input" accept="image/*" required />
+                                <!-- ✅ أضفنا id="file-drop" لربط الحدث -->
+                                <div class="file-upload__drop" id="file-drop">
+                                    <i class="fas fa-cloud-upload-alt file-upload__icon"></i>
+                                    <p class="file-upload__text">اسحب الصورة هنا أو انقر للاختيار</p>
+                                    <span class="file-upload__hint">سيتم ضغط الصورة تلقائياً لتقليل الحجم</span>
+                                </div>
+                                <div class="file-upload__preview" id="image-preview-container" style="display: none;">
+                                    <img id="image-preview" class="file-upload__preview-img" alt="معاينة الصورة" />
+                                    <button type="button" class="file-upload__remove" id="remove-image">
+                                        <i class="fas fa-times-circle"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="file-upload__filename" id="file-name-display"></div>
+                        </div>
+                    </div>
+
+                    <div class="form__group">
+                        <label class="form__label" for="notes">
+                            <i class="fas fa-sticky-note"></i> ملاحظات إضافية
+                        </label>
+                        <textarea id="notes" class="form__input form__input--textarea" rows="3" placeholder="أي ملاحظات إضافية حول المباراة..."></textarea>
+                    </div>
+
+                    <div class="progress-bar" id="progress-bar" style="display: none;">
+                        <div class="progress-bar__track">
+                            <div class="progress-bar__fill" id="progress-fill" style="width: 0%;"></div>
+                        </div>
+                        <span class="progress-bar__text" id="progress-text">0%</span>
+                    </div>
+
+                    <div class="form__actions">
+                        <button type="reset" class="btn btn--secondary">
+                            <i class="fas fa-undo"></i> إعادة تعيين
+                        </button>
+                        <button type="submit" class="btn btn--primary" id="submit-btn">
+                            <i class="fas fa-paper-plane"></i> إرسال النتيجة
+                        </button>
+                    </div>
+
+                    <div id="form-message" class="form__message" style="display: none;"></div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p class="footer__copy">
+                &copy; 2026 <strong>ArenoX Tournament</strong> — جميع الحقوق محفوظة
+            </p>
+        </div>
+    </footer>
+
+    <div class="modal" id="image-modal">
+        <div class="modal__overlay" id="modal-overlay"></div>
+        <div class="modal__content">
+            <button class="modal__close" id="modal-close"><i class="fas fa-times"></i></button>
+            <img id="modal-image" class="modal__image" src="" alt="لقطة شاشة المباراة" />
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
